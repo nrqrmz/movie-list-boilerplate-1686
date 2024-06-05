@@ -26,7 +26,7 @@
       <!-- Your movie list goes here -->
 
       <template id="movieCardTemplate">
-
+        {{#movies}}
         <div class='col-3 mb-3'>
           <div class="card shadow-lg">
             <img src="{{Poster}}" class="card-img-top" alt="{{Title}} poster">
@@ -37,7 +37,7 @@
             </div>
           </div>
         </div>
-
+        {{/movies}}
       </template>
 
 

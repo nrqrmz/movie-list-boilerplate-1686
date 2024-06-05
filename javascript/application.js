@@ -7,11 +7,9 @@ const template = document.querySelector('#movieCardTemplate').innerHTML;
 fetch(url)
   .then(response => response.json())
   .then((data) => {
-    data.Search.forEach((movie) => {
-      const output = Mustache.render(template, movie);
+    const output = Mustache.render(template, { movies: data.Search });
 
-      list.insertAdjacentHTML('beforeend', output)
-    })
+    list.innerHTML = output;
   })
 
 // Mustache.render(string, object)
