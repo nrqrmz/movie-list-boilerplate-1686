@@ -1,24 +1,26 @@
+import Mustache from "mustachejs";
+
 const url = "https://www.omdbapi.com/?s=harry%20potter&apikey=adf1f2d7";
 const list = document.querySelector('#results');
-const template = document.querySelector('#movieCardTemplate');
+const template = document.querySelector('#movieCardTemplate').innerHTML;
 
 fetch(url)
   .then(response => response.json())
   .then((data) => {
     data.Search.forEach((movie) => {
-      const clone = template.content.cloneNode(true);
+      const output = Mustache.render(template, movie);
 
-      clone.querySelector('img').src = movie.Poster;
-      clone.querySelector('img').alt = `${movie.Title} poster`;
-      clone.querySelector('h2').innerText = movie.Title;
-      clone.querySelector('p').innerText = movie.Year;
-      clone.querySelector('a').href = `https://www.imdb.com/title/${movie.imdbID}`;
-
-      list.appendChild(clone);
+      list.insertAdjacentHTML('beforeend', output)
     })
   })
+
+// Mustache.render(string, object)
+// const output = Mustache.render('<h1>{{title}}</h1>', { title: 'Hello Mustache.js' });
+// list.insertAdjacentHTML('beforeend', output)
 
 // Template creation
 // Data input
 // Template engine
 // Output generation
+
+// Mustache is a class
