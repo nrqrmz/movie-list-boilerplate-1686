@@ -1,27 +1,22 @@
 const url = "https://www.omdbapi.com/?s=harry%20potter&apikey=adf1f2d7";
 const list = document.querySelector('#results');
-
+const template = document.querySelector('#movieCardTemplate');
 
 fetch(url)
   .then(response => response.json())
   .then((data) => {
     data.Search.forEach((movie) => {
-      const movieCard = `<div class='col-3 mb-3'>
-        <div class="card shadow-lg">
-          <img src="${movie.Poster}" class="card-img-top" alt="${movie.Title} poster">
-          <div class="card-body">
-            <h2 class="card-title">${movie.Title}</h2>
-            <p class="card-text">${movie.Year}</p>
-            <a href="https://www.imdb.com/title/${movie.imdbID}" class="btn btn-primary" target="_blank">Go on IMDB</a>
-          </div>
-        </div>
-      </div>`;
+      const clone = template.content.cloneNode(true);
 
-      list.insertAdjacentHTML('beforeend', movieCard);
+      clone.querySelector('img').src = movie.Poster;
+      clone.querySelector('img').alt = `${movie.Title} poster`;
+      clone.querySelector('h2').innerText = movie.Title;
+      clone.querySelector('p').innerText = movie.Year;
+      clone.querySelector('a').href = `https://www.imdb.com/title/${movie.imdbID}`;
+
+      list.appendChild(clone);
     })
   })
-
-
 
 // Template creation
 // Data input
